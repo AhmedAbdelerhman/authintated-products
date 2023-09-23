@@ -29,7 +29,7 @@ export class ApiResponseMsg {
 
 
   static errorResponse(message: string = 'failed', status: number) {
-    throw new HttpException(message, status);
+    throw new HttpException(message, status,);
   }
 
 

@@ -17,13 +17,8 @@ export class UserEintity {
   @Column({ nullable: true })
   lastName: string;
 
- 
-
   @Column()
   password: string;
-
-  @Column({ nullable: true })
-  birthDate: Date;
 
   @Column({ nullable: true })
   address: string;

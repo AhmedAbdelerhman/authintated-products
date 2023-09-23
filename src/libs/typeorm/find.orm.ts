@@ -5,8 +5,10 @@ import { ServiceOptions } from './serviceOptions.interfaces';
 export class TypeOrmMethods_Find {
   constructor(
     public readonly entityRepository: Repository<any>,
-    public serviceOptions: ServiceOptions,
-  ) {}
+    public serviceOptions ?: ServiceOptions,
+  ) {
+    console.log('@@@@@@@@@@@@@@@{serviceOptions}', this.serviceOptions);
+  }
 
   // find a single record by specific key
   async FindOneBy(query: TypeOrmMethodsInterface) {
@@ -29,29 +31,20 @@ export class TypeOrmMethods_Find {
   //   });
   // }
   // find with pagination
-  async FindAllPagination(filters: TypeOrmMethodsInterface) {
+  async FindAllPagination({products:productsArray}: any) {
     // this.setFilter(filters);
     // pagination
     const skip = (this.serviceOptions.page - 1) * this.serviceOptions.limit;
-    const take = this.serviceOptions.limit;
+    const take = skip +this.serviceOptions.limit;
     // do find
-    let [results, total] = await this.entityRepository.findAndCount({
-      // where: { ...this.serviceOptions.filter },
-      loadEagerRelations: false,
-
-      skip: skip,
-      take: take,
-      // order: {
-      //   [this.serviceOptions.orderKey]: this.serviceOptions.orderValue,
-      // },
-    });
-
+    let results = productsArray.slice(skip,take);
+    let total = productsArray.length
     let totalPages = 0;
     // if has records
     if (total) {
       totalPages = Math.ceil(total / this.serviceOptions.limit);
     }
-  // clear filter
+    // clear filter
     // this.serviceOptions.filter = {};
 
     let response: any = null;
