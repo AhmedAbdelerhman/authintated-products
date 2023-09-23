@@ -19,7 +19,7 @@ RUN npm install -g webpack-cli
 RUN npm run build
 
 # Expose the port your Nest.js application is listening on
-EXPOSE 8080
+EXPOSE 8000
 
 # Start the Nest.js application
 CMD ["npm", "run", "start:prod"]

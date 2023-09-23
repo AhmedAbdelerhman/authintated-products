@@ -1,4 +1,4 @@
-import { Body, Query, Controller, Param, Patch, Post, Req, UseGuards, Get, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Query, Controller, Param, Patch, Post, Req, UseGuards, Get, UsePipes, ValidationPipe, HttpCode } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user';
 import { Request } from 'express';
 import { LogInDto } from './dto/login.dto';
@@ -19,7 +19,7 @@ export class AuthController {
   @UsePipes(ValidationPipe)
   @Post("signup")
   @ApiOperation({ summary: 'Signup user' })
-  @ApiBody({ type: CreateUserDto }) 
+  @ApiBody({ type: CreateUserDto })
 
   create(@Body() createUserDto: CreateUserDto) {
     return this.authService.signUP(createUserDto);
@@ -27,21 +27,22 @@ export class AuthController {
 
 
   @UsePipes(ValidationPipe)
+  @HttpCode(200)
   @Post("login")
   @ApiOperation({ summary: 'Login user' })
-  @ApiBody({ type: LogInDto }) 
-  @ApiResponse({ status: 200, description: 'logged in successfully' }) 
+  @ApiBody({ type: LogInDto })  // set default body 
   login(@Body() loginInDto: LogInDto) {
     return this.authService.login(loginInDto);
   }
 
   @UseGuards(UsersGuard)
+  @HttpCode(200)
   @UsePipes(ValidationPipe)
   @Post("whoami")
-  @ApiBearerAuth() 
-  @ApiResponse({ status: 200, description: 'whoami successfully' }) 
+  @ApiBearerAuth()  // apply auth token and inject into header in swagger 
+  @ApiResponse({ status: 200, description: 'whoami successfully' })
 
-  whoAmI(@Req() req: Request & {user:string}) {
+  whoAmI(@Req() req: Request & { user: string }) {
     return this.authService.WhoAmI(req);
   }
 

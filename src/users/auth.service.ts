@@ -117,7 +117,6 @@ export class AuthService {
     }
 
     async WhoAmI(req: Request & { user: string }) {
-        console.log('@@@@@@@@@@@@@@@{whoAmI}', req.user);
         const user = await this.findOneByEmail(req.user['email']);
         const { password, updatedAt, ...userData } = user
         return ApiResponseMsg.successResponse('success', userData, 200);
