@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Websockets Client</title>
+    <!-- <link href="/styles.css" rel="stylesheet"> -->
+    <link href="https://unpkg.com/vue-simple-notify/dist/vue-simple-notify.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-simple-notify/dist/vue-simple-notify.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js"
+        integrity="sha512-aoTNnqZcT8B4AmeCFmiSnDlc4Nj/KPaZyB5G7JnOnUEkdNpCZs1LCankiYi01sLTyWy+m2P+W4XM+BuQ3Q4/Dg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+    <main id="v-app">
+
+        <!-- Custom prompt dialog -->
+        <div class="modal-content">
+            <h2>Custom Prompt</h2>
+            <input type="text" v-model="field1" placeholder="Field 1">
+            <input type="text" v-model="field2" placeholder="Field 2">
+            <button @click="submit">OK</button>
+        </div>
+    </main>
+    <script>
+        var app = new Vue({
+            el: '#v-app',
+
+            data: {
+                field1: '',
+                field2: ''
+            },
+            methods: {
+
+                submit() {
+                    // Define the submitCustomPrompt method here
+                    axios.get('localhost:8000/auth/login', {
+                        "email": "user@example.com",
+                        "password": "password123",
+                        "tokenSecondsDuration": 100
+                    })
+                        .then(response => {
+                            // Handle the response data
+                            console.log(response);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                },
+
+
+
+            }
+        });
+
+    </script>
+</body>
+
+</html>

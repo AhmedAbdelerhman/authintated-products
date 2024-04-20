@@ -3,6 +3,33 @@
   "collection": "@nestjs/schematics",
   "sourceRoot": "src",
   "compilerOptions": {
-    "deleteOutDir": true
+    "deleteOutDir": true,
+    "assets": [
+      {
+        "include": "i18n/**/*",
+        "outDir": "dist/src",
+        "watchAssets": true
+      },
+      {
+        "include": "../public",
+        "outDir": "dist/public",
+        "watchAssets": true
+      },
+      {
+        "include": "../views",
+        "outDir": "dist/views",
+        "watchAssets": true
+      },
+      {
+        "include": "../uploads",
+        "outDir": "dist/uploads",
+        "watchAssets": true
+      },
+      {
+        "include": "../ssl",
+        "outDir": "dist/ssl",
+        "watchAssets": true
+      }
+    ]
   }
 }
